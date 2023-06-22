@@ -1,6 +1,7 @@
 package com.github.sharcky.blogerio.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,4 +35,15 @@ public class UserController {
         User savedUser = userRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
+
+    @DeleteMapping("/user/remove/{code}")
+    public ResponseEntity<Integer> deleteUser(@PathVariable("code") Integer code) {
+        try {
+            userRepository.deleteById(code);
+            return new ResponseEntity<>(code, HttpStatus.OK);
+        } catch (EmptyResultDataAccessException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
