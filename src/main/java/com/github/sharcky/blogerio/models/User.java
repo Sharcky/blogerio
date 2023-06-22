@@ -2,9 +2,8 @@ package com.github.sharcky.blogerio.models;
 
 import jakarta.persistence.*;
 
-import java.util.logging.Level;
-
 @Entity
+@Table(name = "Bg_User")
 public class User {
 
     @Id
@@ -12,17 +11,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer UserID;
 
-    @Column(nullable = false, length = 50)
     public String UserName;
 
+    public String UserProfile;
 
-    @Column(nullable = false, length = 50)
-    public Level UserProfile;
-
-    @Column(unique = true, nullable = false, length = 50)
     public String UserEmail;
 
-    @Column(nullable = false, length = 50)
     public String UserPassword;
 
     public Integer getUserID() {
@@ -41,11 +35,11 @@ public class User {
         UserName = userName;
     }
 
-    public Level getUserProfile() {
+    public String getUserProfile() {
         return UserProfile;
     }
 
-    public void setUserProfile(Level userProfile) {
+    public void setUserProfile(String userProfile) {
         UserProfile = userProfile;
     }
 
@@ -54,6 +48,9 @@ public class User {
     }
 
     public void setUserEmail(String userEmail) {
+        if (userEmail == null || userEmail.isEmpty()) {
+            throw new IllegalArgumentException("User email cannot be null or empty");
+        }
         UserEmail = userEmail;
     }
 
