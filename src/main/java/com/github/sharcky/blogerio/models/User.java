@@ -15,8 +15,10 @@ public class User {
 
     public String UserProfile;
 
+    @Column(nullable = false, unique = true)
     public String UserEmail;
 
+    @Column(nullable = false)
     public String UserPassword;
 
     public Integer getUserID() {
@@ -51,6 +53,12 @@ public class User {
         if (userEmail == null || userEmail.isEmpty()) {
             throw new IllegalArgumentException("User email cannot be null or empty");
         }
+
+        String emailRegex = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b";
+        if (!userEmail.matches(emailRegex)) {
+            throw new IllegalArgumentException("Invalid email format");
+        }
+
         UserEmail = userEmail;
     }
 
