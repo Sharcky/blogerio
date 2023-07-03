@@ -2,8 +2,11 @@ package com.github.sharcky.blogerio.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Table(name = "Bg_Post")
+@Data
 public class Post {
 
     @Id
@@ -14,7 +17,7 @@ public class Post {
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "UserID")
-    public User UserPostID;
+    public Usuario UserPostID;
 
     @ManyToOne
     @JsonBackReference
@@ -26,57 +29,14 @@ public class Post {
     @JoinColumn(name = "TagID")
     public Tag TagPostID;
 
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "CommentID")
+    public Comment CommentPostID;
+
     public String PostTitle;
 
     public String PostContent;
 
-    /* GET & SET ---------------------------------------------- */
 
-    public Integer getPostID() {
-        return PostID;
-    }
-
-    public void setPostID(Integer postID) {
-        PostID = postID;
-    }
-
-    public User getUserPostID() {
-        return UserPostID;
-    }
-
-    public void setUserPostID(User userPostID) {
-        UserPostID = userPostID;
-    }
-
-    public Category getCategoryPostID() {
-        return CategoryPostID;
-    }
-
-    public void setCategoryPostID(Category categoryPostID) {
-        CategoryPostID = categoryPostID;
-    }
-
-    public Tag getTagPostID() {
-        return TagPostID;
-    }
-
-    public void setTagPostID(Tag tagPostID) {
-        TagPostID = tagPostID;
-    }
-
-    public String getPostTitle() {
-        return PostTitle;
-    }
-
-    public void setPostTitle(String postTitle) {
-        PostTitle = postTitle;
-    }
-
-    public String getPostContent() {
-        return PostContent;
-    }
-
-    public void setPostContent(String postContent) {
-        PostContent = postContent;
-    }
 }
